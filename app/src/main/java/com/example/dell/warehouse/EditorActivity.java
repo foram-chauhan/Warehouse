@@ -196,7 +196,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         mNameEditText.setOnTouchListener(mTouchListener);
         mPriceEditText.setOnTouchListener(mTouchListener);
         mQuantityEditText.setOnTouchListener(mTouchListener);
-
+        mIncreaseButton.setOnTouchListener(mTouchListener);
+        mDecreaseButton.setOnTouchListener(mTouchListener);
 
         mSaveImageButton = (Button)findViewById(R.id.saveImageBtn);
         mSaveImageButton.setOnClickListener(new View.OnClickListener() {

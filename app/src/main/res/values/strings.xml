@@ -33,4 +33,5 @@
     <string name="editor_update_pet_successful">Pet updated</string>
     <string name="order_extra_quantity">I would like to order some more products.</string>
     <string name="email_subject_for_order">Email Of Supplier</string>
+    <string name="sell_product">Sell Product</string>
 </resources>
