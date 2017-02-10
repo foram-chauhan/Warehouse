@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">Warehouse</string>
+    <string name="empty_view_title_text">It is a bit lonely here..</string>
+    <string name="empty_view_subtitle_text">Start by adding some products.</string>
+    <string name="product_overview">Product Overview</string>
+    <string name="hint_product_name">Product Name</string>
+    <string name="hint_product_price">Price INR</string>
+    <string name="category_quantity">Quantity</string>
+    <string name="hint_product_quantity">Enter quantity</string>
+    <string name="category_select_image">Select Image</string>
+    <string name="select">Select</string>
+    <string name="saveDataBtn">Save Product</string>
+    <string name="editor_insert_product_failed">Some error inserting product.</string>
+    <string name="editor_insert_product_successful">Product added.</string>
+    <string name="price_is">Price :</string>
+    <string name="quantity_is">Quantity :</string>
+    <string name="action_save">Save</string>
+    <string name="action_delete">Delete</string>
+    <string name="orderMoreBtn">Order More</string>
+    <string name="increase_btn">+</string>
+    <string name="decrease_btn">-</string>
+    <string name="editor_activity_title_new_product">Add Product</string>
+    <string name="editor_activity_title_edit_product">Edit Product</string>
+    <string name="unsaved_changes_dialog_msg">Discard your changes and quit editing?</string>
+    <string name="discard">Discrad</string>
+    <string name="keep_editing">Keep Editing</string>
+    <string name="delete_dialog_msg">Delete this pet?</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+    <string name="editor_delete_product_failed">Error with deleting product.</string>
+    <string name="editor_delete_product_successful">Product deleted</string>
+    <string name="editor_update_product_failed">Failed to update pet</string>
+    <string name="editor_update_pet_successful">Pet updated</string>
+    <string name="order_extra_quantity">I would like to order some more products.</string>
+    <string name="email_subject_for_order">Email Of Supplier</string>
+</resources>
