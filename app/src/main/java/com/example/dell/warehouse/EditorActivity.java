@@ -173,12 +173,13 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         mOrderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.v("Summary", getProductSummary());
                 Intent intent = new Intent(Intent.ACTION_SENDTO);
                 intent.setData(Uri.parse("mailto:")); // only email apps should handle this
 
                 intent.putExtra(Intent.EXTRA_SUBJECT,
                         getString(R.string.email_subject_for_order));
-                intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.order_extra_quantity));
+                intent.putExtra(Intent.EXTRA_TEXT, getProductSummary());
                 if (intent.resolveActivity(getPackageManager()) != null) {
                     startActivity(intent);
                 }
@@ -318,7 +319,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             case R.id.action_save:
                 // insert a pet
                 saveProductInDb();
-                finish();
                 return true;
             // Respond to a click on the "Delete" menu option
             case R.id.action_delete:
@@ -402,6 +402,38 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             finish();
         }
     }
+    /**
+     * Call this method to get Summary of the product in the database.
+     */
+    private String getProductSummary() {
+        String finalStringSummary = "";
+        // Only modify the summary if this is an existing product.
+        if (mCurrentProductUri != null) {
+            // Call the ContentResolver to delete the product at the given content URI.
+            // Pass in null for the selection and selection args because the mCurrentProductUri
+            // content URI already identifies the pet that we want.
+            Cursor cursor = getContentResolver().query(mCurrentProductUri, null, null,null,null);
+            if (cursor.moveToFirst()) {
+                // Find the columns of pet attributes that we're interested in
+                int nameColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_NAME);
+                int priceColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_PRICE);
+
+
+                // Extract out the value from the Cursor for the given column index
+                String name = cursor.getString(nameColumnIndex);
+                String price = cursor.getString(priceColumnIndex);
+
+
+                finalStringSummary = getString(R.string.summary_initial_message)+"\n"
+                        +getString(R.string.hint_product_name)+ ": "+ name +"\n"
+                        +getString(R.string.hint_product_price)+ ": "+price;
+
+            }else{
+                finalStringSummary = "";
+            }
+        }
+        return finalStringSummary;
+    }
 
     public void openImageSelector() {
         Intent intent;
@@ -439,18 +471,31 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         // and check if all the fields in the editor are blank
         if (mCurrentProductUri == null &&
                 TextUtils.isEmpty(name) && TextUtils.isEmpty(price) &&
-                TextUtils.isEmpty(quantityString) ) {
+                TextUtils.isEmpty(quantityString) && filePath == null ) {
             // Since no fields were modified, we can return early without creating a new pet.
             // No need to create ContentValues and no need to do any ContentProvider operations.
+            // you could also add a toast info here
+            Toast.makeText(this, "Please fill all the required entries.", Toast.LENGTH_SHORT).show();
             return;
         }
+
         // Read from input fields
         // Use trim to eliminate leading or trailing white space
         // Create a ContentValues object where column names are the keys,
         // and pet attributes from the editor are the values.
         values = new ContentValues();
-        values.put(ProductEntry.COLUMN_PRODUCT_NAME,name);
-        values.put(ProductEntry.COLUMN_PRODUCT_PRICE,price);
+        if(TextUtils.isEmpty(name)){
+            Toast.makeText(this,"Please enter name",Toast.LENGTH_LONG).show();
+        }else{
+            values.put(ProductEntry.COLUMN_PRODUCT_NAME,name);
+        }
+        String priceInitial = "0";
+        if(!TextUtils.isEmpty(price)){
+            values.put(ProductEntry.COLUMN_PRODUCT_PRICE,price);
+        }else{
+            values.put(ProductEntry.COLUMN_PRODUCT_PRICE, priceInitial);
+        }
+
         // If the weight is not provided by the user, don't try to parse the string into an
         // integer value. Use 0 by default.
         int quantity = 0;
@@ -458,8 +503,15 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             quantity = Integer.parseInt(quantityString);
         }
         values.put(ProductEntry.COLUMN_PRODUCT_QUANTITY,quantity);
+
         if(imageSelectBtnNotClicked==true){
-            values.put(ProductEntry.COLUMN_PRODUCT_IMAGE, filePath);
+            if(filePath != null){
+                values.put(ProductEntry.COLUMN_PRODUCT_IMAGE, filePath);
+            }else{
+                values.put(ProductEntry.COLUMN_PRODUCT_IMAGE, "");
+            }
+        }else{
+            values.put(ProductEntry.COLUMN_PRODUCT_IMAGE, "");
         }
 
         if (mCurrentProductUri == null) {
@@ -492,7 +544,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                         Toast.LENGTH_SHORT).show();
             }
         }
-
+        finish();
     }
 
 

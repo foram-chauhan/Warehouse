@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context=".EditorActivity">
+    tools:context=".EditorActivity"
+    android:background="@drawable/gradient">
 
     <!-- Overview product -->
     <LinearLayout
@@ -38,7 +39,7 @@
             <EditText
                 android:id="@+id/edit_product_price"
                 android:hint="@string/hint_product_price"
-                android:inputType="textCapWords"
+                android:inputType="number"
                 style="@style/EditorFieldStyle" />
         </LinearLayout>
     </LinearLayout>
@@ -79,7 +80,7 @@
                 <EditText
                     android:id="@+id/edit_product_quantity"
                     android:hint="@string/hint_product_quantity"
-                    android:inputType="textCapWords"
+                    android:inputType="number"
                     style="@style/EditorFieldStyle"
                     android:layout_width="match_parent" />
                 <Button

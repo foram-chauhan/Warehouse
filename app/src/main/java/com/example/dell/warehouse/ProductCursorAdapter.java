@@ -84,13 +84,6 @@ public class ProductCursorAdapter extends CursorAdapter {
                 String quant = tvQuantity.getText().toString().trim();
                 String[] seperated = quant.split(": ");
                 int finalShownQuantity = Integer.parseInt(seperated[1]);
-             /*   if (finalShownQuantity == 0) {
-                    Toast.makeText(view.getContext(), "Not enough quantity", Toast.LENGTH_LONG).show();
-                } else {
-                    finalShownQuantity = finalShownQuantity - 1;
-                    tvQuantity.setText("");
-                    tvQuantity.setText("Quantity : " + finalShownQuantity);
-                }*/
 
                 ContentResolver resolver = view.getContext().getContentResolver();
                 ContentValues values = new ContentValues();
@@ -103,17 +96,6 @@ public class ProductCursorAdapter extends CursorAdapter {
                 }
             }
         });
-        /*view.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                //create new activity
-                Intent intent = new Intent(view.getContext(),EditorActivity.class);
 
-                Uri uri = ContentUris.withAppendedId(ProductEntry.CONTENT_URI,itemId);
-                intent.setData(uri);
-                view.getContext().startActivity(intent);
-                return false;
-            }
-        });*/
     }
 }

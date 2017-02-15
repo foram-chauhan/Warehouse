@@ -34,4 +34,5 @@
     <string name="order_extra_quantity">I would like to order some more products.</string>
     <string name="email_subject_for_order">Email Of Supplier</string>
     <string name="sell_product">Sell Product</string>
+    <string name="summary_initial_message">Hello Supplier, I would like to order the following product from you:</string>
 </resources>
